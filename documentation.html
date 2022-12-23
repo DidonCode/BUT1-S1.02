@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html style="scroll-behavior: smooth;">
+	<head>
+		<title>SAE Dev 2 - Documentation</title>
+	</head>
+
+	<body style="margin: 0; height: 100%;">
+
+		<div style="height: 100%;">
+			<div style="width: 20%; background-color: #23272a; height: 100%; position: absolute; overflow-y:scroll;">
+				<div style="padding: 25px;">
+
+					<p>SAE</p>
+
+					<a href="#main">Main</a>
+
+					<br><br>
+
+					<!-- ------------------- -->
+
+					<p>GAME</p>
+					
+					<a href="#game">Game</a>
+					<br>
+					<a href="#cursor">Cursor</a>
+					<br>
+					<a href="#file">File</a>
+
+					<br><br>
+
+					<!-- ------------------- -->
+
+					<p>AI</p>
+					<a href="#aiMain">AI Main</a>
+					<br>
+					<a href="#aiRandom">Random</a>
+					<br>
+					<a href="#aiEasy">Easy</a>
+					<br>
+					<a href="#aiNormal">Normal</a>
+					<br>
+					<a href="#aiHard">Hard</a>
+
+					<br><br><br>
+
+				</div>
+			</div>
+
+			<div style="width: 77.2%; background-color: #2c2f33; height: 100%; position: absolute; left: 20%; overflow-y: scroll; padding-left: 35px;">
+				
+				<h1 align="center" style="color: white;">SAE Dev 2 - Documentation</h1>
+
+				<br><br>
+
+				<h4 align="center">SAE</h4>
+
+				<br>
+
+				<h5 id="main">Main</h5>
+
+				<div class="function">
+					<h6>pion* inputPion(int round)</h6>
+
+					<h6>direction inputDirection(pion* pion)</h6>
+
+					<h6>void inputGrid()</h6>
+
+					<h6>void playGame()</h6>
+
+					<h6>void menu()</h6>
+
+					<h6>int main()</h6>
+				</div>
+
+				<br><br>
+
+				<!-- ---------- MAIN ---------- -->
+
+				<h4 align="center">MAIN</h4>
+
+				<br>
+
+				<h5 id="game">Game</h5>
+
+				<div class="function">
+					<h6>enum direction{FORWARD = 0, DIAGONAL_LEFT = -1, DIAGONAL_RIGHT = 1}</h6>
+
+					<h6>struct coord{int x = 0, y = 0}</h6>
+
+					<h6>struct pion{coord position; string color; char sign; int id = -1;}</h6>
+
+					<h6>struct possibility{bool forward = false, diagonal_left = false, diagonal_right = false; int length = 0;}</h6>
+
+					<h6>void clear()</h6>
+
+					<h6>void render(int round)</h6>
+
+					<h6>void init(int width, int height)</h6>
+
+					<h6>pion* getPion(int id)</h6>
+
+					<h6>bool attack(pion* pion, direction direction)</h6>
+
+					<h6>bool move(pion* pion, direction direction)</h6>
+
+					<h6>possibility* getPossibility(pion* pion) </h6>
+
+					<h6>int getTeamPossibility(int idMin, int idMax)</h6>
+
+					<h6>bool verification()</h6>
+
+					<h6>void destroy()</h6>
+				</div>
+
+				<br>
+
+				<h5 id="cursor">Cursor</h5>
+
+				<div class="function">
+					<h6>bool keyPress(int keyCode)</h6>
+
+					<h6>void setCusor(int x, int y)</h6>
+				</div>
+				<br>
+
+				<h5 id="file">File</h5>
+
+				<div class="function">
+					<h6>const string database = "game/database/"</h6>
+
+					<h6>string createName(int width, int height)</h6>
+
+					<h6>bool existFile(string path, string filename)</h6>
+
+					<h6>int getLineNumber(string path, string filename)</h6>
+
+					<h6>void createFile(string path, string filename)</h6>
+
+					<h6>void writeFile(string path, string filename, const char** datas)</h6>
+
+					<h6>string* readFile(string path, string filename)</h6>
+				</div>
+
+				<br><br>
+
+				<!-- ------------ AI ------------ -->
+
+				<h4 align="center">AI</h4>
+
+				<br>
+
+				<h5 id="aiMain">Main</h5>
+
+				<div class="function">
+					<h6>enum difficulty{NONE = -1, RANDOM = 0, EASY = 1, NORMAL = 2, HARD = 3}</h6>
+
+					<h6>void setDifficulty(difficulty difficulty)</h6>
+
+					<h6>pion* getIAPion(int round)</h6>
+
+					<h6>direction getIAMove(pion* pion)</h6>
+
+					<h6>void iaTrian()</h6>
+				</div>
+
+				<br>
+
+				<h5 id="aiRandom">Random</h5>
+
+				<div class="function">
+					<h6>pion* getRandomPion()</h6>
+
+					<h6>direction getRandomMove(pion* pion)</h6>
+				</div>
+
+				<br>
+
+				<h5 id="aiEasy">Easy</h5>
+
+				<div class="function">
+					<h6>pion* getEasyPion()</h6>
+
+					<h6>direction getEasyMove(pion* pion)</h6>
+				</div>
+
+				<br>
+
+				<h5 id="aiNormal">Normal</h5>
+
+				<div class="function">
+					<h6>pion* defense(int round)</h6>
+
+					<h6>pion* rush(int round)</h6>
+
+					<h6>pion* getNormalPion(int round)</h6>
+
+					<h6>direction getNormalMove(pion* pion)</h6>
+				</div>
+
+				<br>
+
+				<h5 id="aiHard">Hard</h5>
+
+				<div class="function">
+					<h6>pion* getHardPion()</h6>
+
+					<h6>direction getHardMove(pion* pion)</h6>
+				</div>
+		</div>
+	</body>
+</html>
+
+<style>
+	body{
+		font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+		font-weight: 600;
+		line-height: 1.5;
+		background-color: #23272a;
+	}
+
+	p, h4, h5, h6{
+		color: white;
+	}
+
+	.function{
+		padding-left: 30px;
+	}
+
+	h4{
+		border: 2px solid white;
+		width: 250px;
+		margin: auto;
+	}
+
+	a{	
+		padding-left: 35px;
+		text-decoration: none;
+		font-size: 15px;
+		line-height: 1.8;
+		color: #72767d;
+		transition: 0.2s;
+	}
+
+	a:hover{
+		color: #fff;
+		transition: 0.2s;
+	}
+
+	p{
+		font-size: 16px;
+		padding-left: 15px;
+	}
+
+	::-webkit-scrollbar {
+		width: 5px;
+		height: 5px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: 20px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: black;
+	}
+</style>
+
+<script>
+	$('a[href*="#"]')
+  // Remove links that don't actually link to anything
+  .not('[href="#"]')
+  .not('[href="#0"]')
+  .click(function(event) {
+    // On-page links
+    if (
+      location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
+      && 
+      location.hostname == this.hostname
+    ) {
+      // Figure out element to scroll to
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      // Does a scroll target exist?
+      if (target.length) {
+        // Only prevent default if animation is actually gonna happen
+        event.preventDefault();
+        $('html, body').animate({
+          scrollTop: target.offset().top
+        }, 1000, function() {
+          // Callback after animation
+          // Must change focus!
+          var $target = $(target);
+          $target.focus();
+          if ($target.is(":focus")) { // Checking if the target was focused
+            return false;
+          } else {
+            $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
+            $target.focus(); // Set focus again
+          };
+        });
+      }
+    }
+  });
+</script>

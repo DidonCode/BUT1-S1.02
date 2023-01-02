@@ -6,7 +6,7 @@ pion* defense(int round){
     pion* pion = NULL;
 
     while(pion == NULL){
-        pion = getRandomPion();
+        pion = getRandomPion(round);
 
         if(pion != NULL){
             possibility* possibilityList = getPossibility(pion);
@@ -36,7 +36,7 @@ pion* rush(int round){
     pion* pion = NULL;
 
     while(pion == NULL){
-        pion = getRandomPion();
+        pion = getRandomPion(round);
 
         if(pion != NULL){
             possibility* possibilityList = getPossibility(pion);
@@ -72,7 +72,7 @@ pion* getNormalPion(int round){
 
         if(pion == NULL){
             normalThec = 0;
-            pion = getRandomPion();
+            pion = getRandomPion(round);
 
         }else{
             normalThec = 2;

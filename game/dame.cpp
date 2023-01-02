@@ -22,9 +22,17 @@ struct possibility{
     int length = 0; 
 };
 
+struct strike{
+    string data = "";
+    int pionId = -1;
+    int direction = 0;
+};
+
 int width = 0, height = 0;
 pion*** table = NULL;
-bool console = false;
+
+strike* recentStrike = NULL;
+strike* lastStrike = NULL;
 
 void clear(){
     system("cls");
@@ -47,22 +55,18 @@ void render(int round){
             }
 
             if(table[x][y] != NULL){ //⬤
-                if(!console){
-                    if(round % 2 == 0){
-                        if(table[x][y]->id < width){
-                           cout<<table[x][y]->color + color<<" "<<table[x][y]->id<<" "<<"\033[37;40m"; 
-                        }else{
-                            cout<<table[x][y]->color + color<<" ⬤ "<<"\033[37;40m";
-                        }
+                if(round % 2 == 0){
+                    if(table[x][y]->id < width){
+                        cout<<table[x][y]->color + color<<" "<<table[x][y]->id<<" "<<"\033[37;40m"; 
                     }else{
-                        if(table[x][y]->id >= width){
-                           cout<<table[x][y]->color + color<<" "<<table[x][y]->id<<" "<<"\033[37;40m"; 
-                        }else{
-                            cout<<table[x][y]->color + color<<" ⬤ "<<"\033[37;40m";
-                        }
+                        cout<<table[x][y]->color + color<<" ⬤ "<<"\033[37;40m";
                     }
                 }else{
-                    cout<<table[x][y]->color + color<<" "<<table[x][y]->sign<<" "<<"\033[37;40m";
+                    if(table[x][y]->id >= width){
+                        cout<<table[x][y]->color + color<<" "<<table[x][y]->id<<" "<<"\033[37;40m"; 
+                    }else{
+                        cout<<table[x][y]->color + color<<" ⬤ "<<"\033[37;40m";
+                    }
                 }
             }else{
                 cout<<color2<<"   "<<"\033[37;40m";
@@ -99,7 +103,6 @@ void init(int width1, int height1){
                 }
                 table[x][y]->position.x = x;
                 table[x][y]->position.y = y;
-
             }else{
                 table[x][y] = NULL;
             }
@@ -116,6 +119,32 @@ pion* getPion(int id){
         }
     }
     return NULL;
+}
+
+pion*** getTable(){
+    return table;
+}
+
+strike* getRecentStrike(){
+    return recentStrike;
+}
+
+strike* getLastStrike(){
+    return lastStrike;
+}
+
+void setRecentStrike(int pionId, int direction){
+    pion* pion = getPion(pionId);
+    recentStrike = new strike();
+    recentStrike->data = to_string(pionId) + "/" + to_string(pion->position.x) + "!" + to_string(pion->position.y) +":" + to_string(direction);
+    recentStrike->pionId = pionId;
+    recentStrike->direction = direction;
+}
+
+void setLastStrike(strike* recentStrike){
+    if(recentStrike != NULL){
+        lastStrike = recentStrike;
+    }
 }
 
 bool attack(pion* pion, int direction){
@@ -166,7 +195,7 @@ bool attack(pion* pion, int direction){
             }
         }
 
-        if(x != pion->position.x ||y != pion->position.y){
+        if(x != pion->position.x || y != pion->position.y){
             table[pion->position.x][pion->position.y] = pion;
             return true;
         }
@@ -264,41 +293,25 @@ int getTeamPossibility(int min, int max){
     return possibility;
 }
 
-bool verification(){
+int verification(){
     for(int i = 0; i < width * 2; i++){
         if(i >= width){
-            if(getPion(i) != NULL && getPion(i)->position.y == 0){
-                cout<<"L'equipe 2 a gagne"<<endl;
-                return true;
-            }
+            if(getPion(i) != NULL && getPion(i)->position.y == 0){ return 2; }
         }else{
-            if(getPion(i) != NULL && getPion(i)->position.y == height - 1){
-                cout<<"L'equipe 1 a gagne"<<endl;
-                return true;
-            }
+            if(getPion(i) != NULL && getPion(i)->position.y == height - 1){ return 1; }
         }
     }
 
     int team1 = getTeamPossibility(0, width);
     int team2 = getTeamPossibility(width, width * 2);
 
-    if(team1 == 0 && team2 == 0){
-        cout<<"Egalite"<<endl;
-        return true;
-    }
+    if(team1 == 0 && team2 == 0){ return 3; }
     else{
-        if(team1 == 0 && team2 != 0){
-            cout<<"L'equipe 2 a gagne"<<endl;
-            return true;
-        }
-        
-        if(team1 != 0 && team2 == 0){
-            cout<<"L'equipe 1 a gagne"<<endl;
-            return true;
-        }
+        if(team1 == 0 && team2 != 0){ return 2; } //return 2;
+        if(team1 != 0 && team2 == 0){ return 1; } //return 1;
     }
 
-    return false;
+    return 0;
 }
 
 void destroy(){
@@ -308,6 +321,8 @@ void destroy(){
         }
         delete[] table[x];
     }
+    delete [] table;
 
-    delete[] table;
+    if(recentStrike != NULL){ delete recentStrike; }
+    if(lastStrike != NULL){ delete lastStrike; }
 }

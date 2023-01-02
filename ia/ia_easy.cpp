@@ -30,7 +30,7 @@ pion* getEasyPion(){
     return NULL;
 }
 
-int getEasyMove(pion* pion){
+direction getEasyMove(pion* pion){
     possibility* possibilityList = getPossibility(pion);
 
     if(possibilityList->forward){

@@ -1,12 +1,15 @@
 #include <iostream>
 
-pion* getRandomPion(){
+pion* getRandomPion(int round){
     while(true){
-        pion* pion = getPion(rand() % width);
-        if(pion != NULL){
-            possibility* possibilityList = getPossibility(pion);
+        int id = 0;
+        id = rand() % width;
 
-            if(possibilityList->length > 0){
+        if(round % 2 == 1){ id = id + width; }
+
+        pion* pion = getPion(id);
+        if(pion != NULL){
+            if(getPossibility(pion)->length > 0){
                 return pion;
             }
         }

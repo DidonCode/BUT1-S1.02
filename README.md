@@ -1,3 +1,3 @@
 # SAE-Dame
 
-Objectic crée un alogrithme(AI) qui joue au dame(simplifié)
+Objectif crée un alogrithme(AI) qui joue au dame(simplifié)
